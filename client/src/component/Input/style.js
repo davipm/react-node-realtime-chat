@@ -14,15 +14,28 @@ export const InputWrapper = styled('input')`
 `;
 
 export const SendButton = styled('button')`
+  display: inline-block;
   position: relative;
   left: .2px;
-  color: #fff;
-  text-transform: uppercase;
-  text-decoration: none;
-  background: #2979FF;
-  padding: 20px;
-  display: inline-block;
-  border: none;
   width: 20%;
+  padding: 20px;
+  font-size: 1rem;
+  font-weight: normal;
+  font-style: normal;
+  text-align: center;
+  color: white;
+  background-color: #2979FF;
+  border: 0;
+  border-radius: 0;
   cursor: pointer;
+  transition: all .15s ease-in-out;
+  user-select: none;
+  
+  &:hover {
+    opacity: .8;
+  }
+ 
+  &:focus {
+    outline: none;
+  }
 `;
