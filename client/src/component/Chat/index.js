@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import queryString from 'query-string';
-import io from 'socket.io-client';
+import React, { useState, useEffect, useCallback } from "react";
+import queryString from "query-string";
+import io from "socket.io-client";
 
 import InfoBar from "../InfoBar";
 import Input from "../Input";
@@ -11,13 +11,13 @@ import { OuterContainer, Container } from "./style";
 
 let socket;
 
-function Chat({ location }) {
-  const [name, setName] = useState('');
-  const [room, setRoom] = useState('');
+export default function Chat({ location }) {
+  const [name, setName] = useState("");
+  const [room, setRoom] = useState("");
   const [users, setUsers] = useState([]);
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
-  const ENDPOINT = 'localhost:5000';
+  const ENDPOINT = "localhost:5000";
 
   useEffect(() => {
     const { name, room } = queryString.parse(location.search);
@@ -27,7 +27,7 @@ function Chat({ location }) {
     setName(name);
     setRoom(room);
 
-    socket.emit('join', { name, room }, (error) => {
+    socket.emit("join", { name, room }, (error) => {
       if (error) {
         alert(error);
       }
@@ -35,39 +35,42 @@ function Chat({ location }) {
   }, [ENDPOINT, location.search]);
 
   useEffect(() => {
-    socket.on('message', (message) => {
-      setMessages([...messages, message])
+    socket.on("message", (message) => {
+      setMessages([...messages, message]);
     });
 
-    socket.on('roomData', ({ users }) => {
+    socket.on("roomData", ({ users }) => {
       setUsers(users);
     });
 
     return () => {
-      socket.emit('disconnect');
+      socket.emit("disconnect");
       socket.off();
-    }
+    };
   }, [messages]);
 
-  // function for send message
-  function sendMessage(event) {
-    event.preventDefault();
-
-    if (message) {
-      socket.emit('sendMessage', message, () => setMessage(''));
-    }
-  }
+  const sendMessage = useCallback(
+    (event) => {
+      event.preventDefault();
+      if (message) {
+        socket.emit("sendMessage", message, () => setMessage(""));
+      }
+    },
+    [message]
+  );
 
   return (
     <OuterContainer>
       <Container>
         <InfoBar room={room} />
         <Messages name={name} messages={messages} />
-        <Input message={message} setMessage={setMessage} sendMessage={sendMessage} />
+        <Input
+          message={message}
+          setMessage={setMessage}
+          sendMessage={sendMessage}
+        />
       </Container>
       <TextContainer users={users} />
     </OuterContainer>
   );
 }
-
-export default Chat;
