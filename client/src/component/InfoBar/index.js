@@ -1,12 +1,17 @@
-import React from 'react';
+import React from "react";
 import { Link } from "react-router-dom";
 
-import onlineIcon from '../../icons/onlineIcon.png';
-import closeIcon from '../../icons/closeIcon.png';
+import onlineIcon from "../../icons/onlineIcon.png";
+import closeIcon from "../../icons/closeIcon.png";
 
-import { Wrapper, LeftInnerContainer, OnlineIcon, RightInnerContainer } from "./style";
+import {
+  Wrapper,
+  LeftInnerContainer,
+  OnlineIcon,
+  RightInnerContainer,
+} from "./style";
 
-function InfoBar({ room }) {
+export default function InfoBar({ room }) {
   return (
     <Wrapper>
       <LeftInnerContainer>
@@ -14,10 +19,10 @@ function InfoBar({ room }) {
         <h3>{room}</h3>
       </LeftInnerContainer>
       <RightInnerContainer>
-        <Link to="/"><img src={closeIcon} alt="Close icon" /></Link>
+        <Link to="/">
+          <img src={closeIcon} alt="Close icon" />
+        </Link>
       </RightInnerContainer>
     </Wrapper>
   );
 }
-
-export default InfoBar;

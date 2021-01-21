@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import ScrollToBottom from "react-scroll-to-bottom";
 
 export const Wrapper = styled(ScrollToBottom)`

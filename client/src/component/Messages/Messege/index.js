@@ -1,34 +1,20 @@
-import React from 'react';
+import React, { useState, useMemo } from "react";
 import ReactEmoji from "react-emoji";
 
 import { MessageBox, MessageContainer, MessageText, SendText } from "./style";
 
-function Message({ message: { text, user }, name }) {
-  let isSentByCurrentUser = false;
+export default function Message({ message: { text, user }, name }) {
+  const [isSentByCurrentUser, setIsSentByCurrentUser] = useState(false);
+  const trimmedName = useMemo(() => name.trim().toLowerCase(), [name]);
 
-  const trimmedName = name.trim().toLowerCase();
-  
-  if (user === trimmedName) {
-    isSentByCurrentUser = true;
-  }
+  if (user === trimmedName) setIsSentByCurrentUser(true);
 
   return (
-    isSentByCurrentUser ? (
-      <MessageContainer>
-        <SendText>{trimmedName}</SendText>
-        <MessageBox>
-          <MessageText>{ReactEmoji.emojify(text)}</MessageText>
-        </MessageBox>
-      </MessageContainer>
-    ) : (
-      <MessageContainer>
-        <MessageBox>
-          <MessageText>{ReactEmoji.emojify(text)}</MessageText>
-        </MessageBox>
-        <SendText>{user}</SendText>
-      </MessageContainer>
-    )
+    <MessageContainer isSend={isSentByCurrentUser}>
+      <SendText>{isSentByCurrentUser ? trimmedName : name}</SendText>
+      <MessageBox>
+        <MessageText>{ReactEmoji.emojify(text)}</MessageText>
+      </MessageBox>
+    </MessageContainer>
   );
 }
-
-export default Message;
