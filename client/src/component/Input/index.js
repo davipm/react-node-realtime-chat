@@ -7,6 +7,7 @@ const Input = ({ setMessage, sendMessage, message }) => (
     <InputWrapper
       type="text"
       placeholder="Type a message"
+      autoFocus
       value={message}
       onChange={({ target: { value } }) => setMessage(value)}
       onKeyPress={(event) =>

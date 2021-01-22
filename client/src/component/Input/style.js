@@ -1,11 +1,11 @@
 import styled from "styled-components/macro";
 
-export const Wrapper = styled("form")`
+export const Wrapper = styled.form`
   display: flex;
   border-top: 2px solid #d3d3d3;
 `;
 
-export const InputWrapper = styled("input")`
+export const InputWrapper = styled.input`
   border: none;
   border-radius: 0;
   padding: 5%;
@@ -13,7 +13,7 @@ export const InputWrapper = styled("input")`
   font-size: 1.2em;
 `;
 
-export const SendButton = styled("button")`
+export const SendButton = styled.button`
   display: inline-block;
   position: relative;
   left: 0.2px;

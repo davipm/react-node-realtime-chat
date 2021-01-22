@@ -9,6 +9,7 @@ import TextContainer from "../TextContainer";
 
 import { OuterContainer, Container } from "./style";
 
+const ENDPOINT = "localhost:5000";
 let socket;
 
 export default function Chat({ location }) {
@@ -17,7 +18,6 @@ export default function Chat({ location }) {
   const [users, setUsers] = useState([]);
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
-  const ENDPOINT = "localhost:5000";
 
   useEffect(() => {
     const { name, room } = queryString.parse(location.search);
@@ -36,7 +36,7 @@ export default function Chat({ location }) {
 
   useEffect(() => {
     socket.on("message", (message) => {
-      setMessages([...messages, message]);
+      setMessages((prevState) => [...prevState, message]);
     });
 
     socket.on("roomData", ({ users }) => {
@@ -47,7 +47,7 @@ export default function Chat({ location }) {
       socket.emit("disconnect");
       socket.off();
     };
-  }, [messages]);
+  }, []);
 
   const sendMessage = useCallback(
     (event) => {
