@@ -27,7 +27,7 @@ export default function TextContainer({ users }) {
           </span>
         </h2>
       </div>
-      {users ? (
+      {users && (
         <div>
           <h1>People currently chatting:</h1>
           <ActiveContainer>
@@ -41,7 +41,7 @@ export default function TextContainer({ users }) {
             </h2>
           </ActiveContainer>
         </div>
-      ) : null}
+      )}
     </Wrapper>
   );
 }
