@@ -15,4 +15,4 @@ Node.js installed
 
 ## Authors
 
-* **Davi Pereira**
+* **Davi Pereira** in jan/2020
